@@ -1,7 +1,7 @@
 {
   "port": 8000,
-  "dataPath": "/tmp/neural-style-server/",
-  "neuralStylePath": "/home/matt/neural/neural-style/",
-  "username": "user",
+  "dataPath": "/home/sheerun/Neuroart",
+  "neuralStylePath": "/home/sheerun/Source/neural-style",
+  "username": "admin",
   "password": "password"
 }

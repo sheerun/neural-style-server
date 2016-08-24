@@ -39,25 +39,8 @@
     </style>
     <div class="settings-columns">
       <div class="settings-column">
-        <paper-dropdown-menu label="Output Image Size" disabled="{{ disabled }}">
-          <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{ settings.imageSize }}">
-            <paper-item data-value="128">128px</paper-item>
-            <paper-item data-value="256">256px</paper-item>
-            <paper-item data-value="384">384px</paper-item>
-            <paper-item data-value="512">512px</paper-item>
-            <paper-item data-value="768">768px</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
-        <paper-dropdown-menu label="Number of Iterations" disabled="{{ disabled }}">
-          <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{ settings.numIterations }}">
-            <paper-item data-value="500">500</paper-item>
-            <paper-item data-value="750">750</paper-item>
-            <paper-item data-value="1000">1000</paper-item>
-            <paper-item data-value="1250">1250</paper-item>
-            <paper-item data-value="1500">1500</paper-item>
-            <paper-item data-value="2000">2000</paper-item>
-          </paper-listbox>
-        </paper-dropdown-menu>
+        <paper-input label="Output Image Size" disabled="{{ disabled }}" value="{{ settings.imageSize }}"></paper-input>
+        <paper-input label="Number of Iterations" disabled="{{ disabled }}" value="{{ settings.numIterations }}"></paper-input>
         <paper-dropdown-menu label="Initial Image" disabled="{{ disabled }}">
           <paper-listbox class="dropdown-content" attr-for-selected="data-value" selected="{{ settings.init }}">
             <paper-item data-value="random">random</paper-item>
@@ -76,54 +59,24 @@
             <paper-item data-value="lbfgs">L-BFGS</paper-item>
           </paper-listbox>
         </paper-dropdown-menu>
-        <labeled-log-slider
-           label="Learning Rate"
-           value="{{ settings.learningRate }}"
-           min="1"
-           max="20"
-           disabled="{{ disabled }}">
-        </labeled-log-slider>
-        <layer-picker
-           label="Content Layers"
-           layers="{{ settings.contentLayers }}"
-           disabled="{{ disabled }}">
-        </layer-picker>
+        <paper-input label="Learning Rate" disabled="{{ disabled }}" value="{{ settings.learningRate }}"></paper-input>
         <paper-checkbox class="normalize-gradients" checked="{{ settings.normalizeGradients }}" disabled="{{ disabled }}">
           Normalize Gradients
         </paper-checkbox>
       </div>
       <div class="settings-column">
-        <labeled-log-slider
-           label="Content Weight"
-           value="{{ settings.contentWeight }}"
-           min="0.001"
-           max="100"
-           disabled="{{ disabled }}">
-        </labeled-log-slider>
-        <labeled-log-slider
-           label="Style Weight"
-           value="{{ settings.styleWeight }}"
-           min="0.001"
-           max="100"
-           disabled="{{ disabled }}">
-        </labeled-log-slider>
-        <labeled-log-slider
-           label="Style Scale"
-           value="{{ settings.styleScale }}"
-           min="0.1"
-           max="10"
-           disabled="{{ disabled }}">
-        </labeled-log-slider>
-        <labeled-log-slider
-           label="TV Regularization Weight"
-           value="{{ settings.tvWeight }}"
-           min="0.0001"
-           max="1"
-           disabled="{{ disabled }}">
-        </labeled-log-slider>
+        <paper-input label="Content Weight" disabled="{{ disabled }}" value="{{ settings.contentWeight }}"></paper-input>
+        <paper-input label="Style Weight" disabled="{{ disabled }}" value="{{ settings.styleWeight }}"></paper-input>
+        <paper-input label="Style Scale" disabled="{{ disabled }}" value="{{ settings.styleScale }}"></paper-input>
+        <paper-input label="TV Regularization Weight" disabled="{{ disabled }}" value="{{ settings.tvWeight }}"></paper-input>
         <layer-picker
            label="Style Layers"
            layers="{{ settings.styleLayers }}"
+           disabled="{{ disabled }}">
+        </layer-picker>
+        <layer-picker
+           label="Content Layers"
+           layers="{{ settings.contentLayers }}"
            disabled="{{ disabled }}">
         </layer-picker>
       </div>
@@ -132,18 +85,18 @@
   <script>
     function makeDefaultSettings() {
       return {
-        'imageSize': 256,
+        'imageSize': 512,
         'numIterations': 1000,
         'contentWeight': 5,
-        'styleWeight': 100,
+        'styleWeight': 1000,
         'tvWeight': 0.001,
-        'init': 'random',
+        'init': 'image',
         'normalizeGradients': false,
         'contentLayers': ['relu4_2'],
         'styleLayers': ['relu1_1', 'relu2_1', 'relu3_1', 'relu4_1', 'relu5_1'],
         'styleScale': 1.0,
         'pooling': 'max',
-        'optimizer': 'adam',
+        'optimizer': 'lbfgs',
         'learningRate': 10.0,
       };
     }
