@@ -2,8 +2,9 @@ var _ = require('underscore');
 var async = require('async');
 var config = require('config');
 var fs = require('fs');
-var imagemagick = require('imagemagick');
 var path = require('path');
+var readChunk = require('read-chunk');
+var fileType = require('file-type');
 
 try {
   fs.mkdirSync(config.get('dataPath'));
@@ -104,15 +105,12 @@ exports.saveImage = function(id, purpose, data, callback) {
       fs.writeFile(outputPath, data, cb);
     },
     function(cb) {
-      imagemagick.identify(outputPath, cb);
-    },
-    function(features, cb) {
-      var outputPathWithExt;
-      if (features['format'] == 'JPEG') {
-        outputPathWithExt = outputPath + '.jpg';
-      } else if (features['format'] == 'PNG') {
-        outputPathWithExt = outputPath + '.png';
-      }
+      var buffer = readChunk.sync(outputPath, 0, 262);
+      var format = fileType(buffer);
+      console.log(format);
+
+      var outputPathWithExt = outputPath + '.' + format.ext;
+
       if (outputPathWithExt) {
         fs.rename(outputPath, outputPathWithExt, cb);
       } else {

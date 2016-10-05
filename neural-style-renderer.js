@@ -90,6 +90,12 @@ function runRender(task, callback) {
     '-save_iter', saveIterStep,
     '-backend', 'cudnn',
     '-cudnn_autotune',
+    // '-model_file', 'models/snapshot_iter_765280.caffemodel',
+    // '-proto_file', 'models/deploy_10.prototxt'
+    // '-model_file', 'models/VGG_ILSVRC_16_layers.caffemodel',
+    // '-proto_file', 'models/VGG_ILSVRC_16_layers_deploy.prototxt'
+    '-model_file', 'models/VGG_ILSVRC_19_layers.caffemodel',
+    '-proto_file', 'models/VGG_ILSVRC_19_layers_deploy.prototxt'
   ];
   if (task.settings.normalizeGradients) {
     params.push('-normalize_gradients');
